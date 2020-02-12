@@ -11,7 +11,6 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        /** TODO: must define number of application pages (maybe two simple: GET page (read values), SET page (config values))  **/
         <Stack.Screen name="Beer App" component={MainScreen} />  
       </Stack.Navigator>
     </NavigationContainer>
