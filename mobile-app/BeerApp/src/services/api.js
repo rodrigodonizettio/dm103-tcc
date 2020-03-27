@@ -1,7 +1,29 @@
 import axios from 'axios';
 
-const api = axios.create({
-    baseURL: 'https://api.thingspeak.com/channels/983799/fields/1.json?api_key=AKAB42W53OVKOZ5R&results=1'
+const apiGPIOChannelFeed = axios.create({
+    baseURL: 'https://api.thingspeak.com/channels/998742/feeds.json?api_key=FS9XJWHHRD8GJZVV&results=1'
 });
 
-export default api;
+const apiStageChannelFeed = axios.create({
+    baseURL: 'https://api.thingspeak.com/channels/998756/feeds.json?api_key=E0Q0FPKEI9YED8VH&results=1'
+});
+
+const apiFermChannelFeed = axios.create({
+    baseURL: 'https://api.thingspeak.com/channels/998747/feeds.json?api_key=85EUJOGNPD9S0WGL&results=1'
+});
+
+const apiMatChannelFeed = axios.create({
+    baseURL: 'https://api.thingspeak.com/channels/998751/feeds.json?api_key=CMRBBZA87WA315AA&results=1'
+});
+
+const apiSendStartProcess = axios.create({
+    baseURL: ''
+});
+
+export { 
+    apiGPIOChannelFeed, 
+    apiStageChannelFeed,
+    apiFermChannelFeed,
+    apiMatChannelFeed,
+    apiSendStartProcess
+};

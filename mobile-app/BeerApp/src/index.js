@@ -11,7 +11,7 @@ function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name="Beer App" component={MainScreen} />  
+        <Stack.Screen name="Fermentare" component={MainScreen} />  
       </Stack.Navigator>
     </NavigationContainer>
   );
