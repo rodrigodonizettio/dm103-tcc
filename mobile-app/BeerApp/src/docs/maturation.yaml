@@ -1,0 +1,147 @@
+swagger: "2.0"
+info:
+  description: "This document has the purpose to describe the API of a mobile application that aims to manage the beer fermentation process."
+  version: "1.0.0"
+  title: "Fermentare"
+  contact: 
+    email: "rodrigodonizettio@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "editor.swagger.io"
+basePath: "/v2"
+tags:
+- name: "Maturation Channel"
+  description: "This channel contains data about: Temperature#1..4 (t) and Time#1..4 (s)"
+paths:
+  https://api.thingspeak.com/channels/998751/feeds.json?api_key=xxxxxxxxxxxxxxxx&results=1:
+    get:
+      tags:
+      - "Maturation Channel"
+      summary: "Retrieves the most recent data for Maturation configurations"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/components/schemas/maturation"
+        400:
+          description: "Invalid request"
+  https://api.thingspeak.com/update?api_key=xxxxxxxxxxxxxxxx&field1={t1}&field3={t2}&field5={t3}&field7={t4}&field2={s1}&field4={s2}&field6={s3}&field8={s4}:
+    get:
+      tags:
+      - "Maturation Channel"
+      summary: "Maturation Temperatures [°C] (field1, 3, 5 and 7) and Times [s] (field2, 4, 6 and 8) configurations"
+      produces:
+      - "text/plain"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/components/schemas/entryId"
+        400:
+          description: "Invalid request"        
+definitions:
+  channel:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+        default: "MaturationTime"
+      description:
+        type: "string"
+        default: "This channel stores temperature and time to maturation process."
+      latitude:
+        type: "string"
+        default: "0.0"
+      longitude:
+        type: "string"
+        default: "0.0"
+      field1:
+        type: "string"
+        default: "temperature1"
+      field2:
+        type: "string"
+        default: "time1"
+      field3:
+        type: "string"
+        default: "temperature2"
+      field4:
+        type: "string"
+        default: "time2"
+      field5:
+        type: "string"
+        default: "temperature3"
+      field6:
+        type: "string"
+        default: "time3"
+      field7:
+        type: "string"  
+        default: "temperature4"
+      field8:
+        type: "string"  
+        default: "time4"
+      created_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      updated_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      last_entry_id:
+        type: "integer"
+  feeds:
+    type: "array"
+    items:
+        $ref: '#/definitions/feedsObject'
+  feedsObject:
+    type: "object"
+    properties:
+      created_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      entry_id:
+        type: "integer"
+      field1:
+        type: "string"
+        default: "null"
+      field2:
+        type: "string"
+        default: "null"
+      field3:
+        type: "string"
+        default: "null"
+      field4:
+        type: "string"
+        default: "null"
+      field5:
+        type: "string"
+        default: "null"
+      field6:
+        type: "string"
+        default: "null"
+      field7:
+        type: "string"
+        default: "null"
+      field8:
+        type: "string"
+        default: "null"
+components:
+  schemas:
+    maturation:
+      type: object
+      properties:
+        channel:
+          $ref: '#/definitions/channel'
+        feeds:
+          $ref: '#/definitions/feeds'
+    entryId:
+      type: "integer"
+externalDocs:
+  description: "Find out more about ThingSpeak"
+  url: "http://www.thingspeak.com"

@@ -1,0 +1,101 @@
+swagger: "2.0"
+info:
+  description: "This document has the purpose to describe the API of a mobile application that aims to manage the beer fermentation process."
+  version: "1.0.0"
+  title: "Fermentare"
+  contact: 
+    email: "rodrigodonizettio@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "editor.swagger.io"
+basePath: "/v2"
+tags:
+- name: "Stage Channel"
+  description: "This channel contains data about: Time Last, Stage Status and Process Status"
+paths:
+  https://api.thingspeak.com/channels/998756/feeds.json?api_key=xxxxxxxxxxxxxxxx&results=1:
+    get:
+      tags:
+      - "Stage Channel"
+      summary: "Retrieves the most recent data for Stage status"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/components/schemas/stage"
+        400:
+          description: "Invalid request"
+definitions:
+  channel:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+        default: "stage"
+      description:
+        type: "string"
+        default: "This channel stores the stage of the process and time lasts to finish."
+      latitude:
+        type: "string"
+        default: "0.0"
+      longitude:
+        type: "string"
+        default: "0.0"
+      field1:
+        type: "string"
+        default: "timeLasts"
+      field2:
+        type: "string"
+        default: "stage"
+      field3:
+        type: "string"
+        default: "process"
+      created_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      updated_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      last_entry_id:
+        type: "integer"
+  feeds:
+    type: "array"
+    items:
+        $ref: '#/definitions/feedsObject'
+  feedsObject:
+    type: "object"
+    properties:
+      created_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      entry_id:
+        type: "integer"
+      field1:
+        type: "string"
+        default: "null"
+      field2:
+        type: "string"
+        default: "null"
+      field3:
+        type: "string"
+        default: "null"
+components:
+  schemas:
+    stage:
+      type: object
+      properties:
+        channel:
+          $ref: '#/definitions/channel'
+        feeds:
+          $ref: '#/definitions/feeds'
+externalDocs:
+  description: "Find out more about ThingSpeak"
+  url: "http://www.thingspeak.com"

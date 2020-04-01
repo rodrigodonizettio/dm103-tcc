@@ -1,0 +1,141 @@
+swagger: "2.0"
+info:
+  description: "This document has the purpose to describe the API of a mobile application that aims to manage the beer fermentation process."
+  version: "1.0.0"
+  title: "Fermentare"
+  contact: 
+    email: "rodrigodonizettio@gmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "editor.swagger.io"
+basePath: "/v2"
+tags:
+- name: "GPIO Channel"
+  description: "This channel contains data about: System Status, Current Fermentation Temperature, Cooler Status and Heater Status"
+paths:
+  https://api.thingspeak.com/channels/998742/feeds.json?api_key=xxxxxxxxxxxxxxxx&results=1:
+    get:
+      tags:
+      - "GPIO Channel"
+      summary: "Retrieves the most recent data for GPIOs status"
+      produces:
+      - "application/json"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/components/schemas/gpio"
+        400:
+          description: "Invalid request"
+  https://api.thingspeak.com/update?api_key=xxxxxxxxxxxxxxxx&field1=1:
+    get:
+      tags:
+      - "GPIO Channel"
+      summary: "System start trigger"
+      produces:
+      - "text/plain"
+      responses:
+        200:
+          description: "successful operation"
+          schema:
+              $ref: "#/components/schemas/entryId"
+        400:
+          description: "Invalid request"        
+definitions:
+  channel:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+      name:
+        type: "string"
+        default: "GPIO"
+      description:
+        type: "string"
+        default: "This channel stores GPIO data"
+      latitude:
+        type: "string"
+        default: "0.0"
+      longitude:
+        type: "string"
+        default: "0.0"
+      field1:
+        type: "string"
+        default: "startStopButton"
+      field2:
+        type: "string"
+        default: "systemStatusLED"
+      field3:
+        type: "string"
+        default: "currentTemperature"
+      field4:
+        type: "string"
+        default: "cooler"
+      field5:
+        type: "string"
+        default: "coolerStatusLED"
+      field6:
+        type: "string"
+        default: "heather"
+      field7:
+        type: "string"  
+        default: "heatherStatusLED"
+      created_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      updated_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      last_entry_id:
+        type: "integer"
+  feeds:
+    type: "array"
+    items:
+        $ref: '#/definitions/feedsObject'
+  feedsObject:
+    type: "object"
+    properties:
+      created_at:
+        type: "string"
+        format: "date-time"
+        default: "yyyy-mm-ddTHH:MM:SSZ"
+      entry_id:
+        type: "integer"
+      field1:
+        type: "string"
+        default: "null"
+      field2:
+        type: "string"
+        default: "null"
+      field3:
+        type: "string"
+        default: "null"
+      field4:
+        type: "string"
+        default: "null"
+      field5:
+        type: "string"
+        default: "null"
+      field6:
+        type: "string"
+        default: "null"
+      field7:
+        type: "string"
+        default: "null"
+components:
+  schemas:
+    gpio:
+      type: object
+      properties:
+        channel:
+          $ref: '#/definitions/channel'
+        feeds:
+          $ref: '#/definitions/feeds'
+    entryId:
+      type: "integer"
+externalDocs:
+  description: "Find out more about ThingSpeak"
+  url: "http://www.thingspeak.com"
