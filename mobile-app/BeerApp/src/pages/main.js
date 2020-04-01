@@ -118,7 +118,7 @@ export class MainScreen extends React.Component {
         this.setState({ fermTime4: feeds[0].field8 ? feeds[0].field8/86400 : 'N/A' }); //Representing Time in Days
     };
 
-    loadFermChannelFeedInterval = setInterval(this.loadFermChannelFeed, 60000);
+    loadFermChannelFeedInterval = setInterval(this.loadFermChannelFeed, 120000);
 
     loadMatChannelFeed = async () => {
         const response = await apiMatChannelFeed.get();
@@ -134,7 +134,7 @@ export class MainScreen extends React.Component {
         this.setState({ matTime4: feeds[0].field8 ? feeds[0].field8/86400 : 'N/A' }); //Representing Time in Days
     };
 
-    loadMatChannelFeedInterval = setInterval(this.loadMatChannelFeed, 60000);
+    loadMatChannelFeedInterval = setInterval(this.loadMatChannelFeed, 120000);
 
     sendFermChannelFeed = async () => {
         const response = apiSendStartProcess.get("https://api.thingspeak.com/update?api_key=MJLW7MUQEFDVJJYD"
