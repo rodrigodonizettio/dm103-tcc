@@ -179,10 +179,25 @@ export class MainScreen extends React.Component {
         Alert.alert("Fermentation Process will start soon");
     };
 
-    sendNewSchedule = () => {
+    sendStopProcess = async () => {
+        const response = apiSendStartProcess.get("https://api.thingspeak.com/update?api_key=ZOXAWIT42OYRP8Z8"
+            + "&field1=" + 1
+        );
+        const { status } = response;
+        console.log("GET - New STOP Process TO ThingSpeak");
+        Alert.alert("Fermentation Process will stop soon");
+    };
+
+    sendStartSchedule = () => {
         this.sendFermChannelFeed();
         this.sendMatChannelFeed();
         this.sendStartProcess();
+        this.loadFermChannelFeed();
+        this.loadMatChannelFeed();
+    };
+
+    sendStopSchedule = () => {
+        this.sendStopProcess();
         this.loadFermChannelFeed();
         this.loadMatChannelFeed();
     };
@@ -340,7 +355,8 @@ export class MainScreen extends React.Component {
                             <Text>[days]</Text>
                         </View>
                         <View style={styles.button}>
-                        <Button title="Send New Schedule!" onPress={() => this.sendNewSchedule()}></Button>
+                        <Button title="Start Schedule!" onPress={() => this.sendStartSchedule()}></Button>
+                        <Button title="Stop Schedule!" onPress={() => this.sendStopSchedule()}></Button>
                         </View>
                     </View>
                 </ScrollView>
@@ -380,7 +396,10 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     button: {
-        marginVertical: 12
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        width: '90%',
+        marginVertical: 12,
     },
     boldAndBlue: {
         fontWeight: 'bold',
