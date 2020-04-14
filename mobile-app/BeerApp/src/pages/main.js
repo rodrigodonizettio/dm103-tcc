@@ -43,6 +43,13 @@ export class MainScreen extends React.Component {
         const response = await apiGPIOChannelFeed.get();
         const { feeds } = response.data;
         console.log("GET - GPIO Channel Feed FROM ThingSpeak: " + feeds[0]);
+        console.log("field-1: " + feeds[0].field1);
+        console.log("field-2: " + feeds[0].field2);
+        console.log("field-3: " + feeds[0].field3);
+        console.log("field-4: " + feeds[0].field4);
+        console.log("field-5: " + feeds[0].field5);
+        console.log("field-6: " + feeds[0].field6);
+        console.log("field-7: " + feeds[0].field7);
         this.setState({ gpioSystemStatusLED: this.loadGPIOBooleanValue(feeds[0].field2) });
         this.setState({ gpioCurrentTemperature: this.loadGPIOCurrentTemperature(feeds[0].field3) });
         this.setState({ gpioCooler: this.loadGPIOBooleanValue(feeds[0].field4) });
@@ -57,13 +64,17 @@ export class MainScreen extends React.Component {
         const response = await apiStageChannelFeed.get();
         const { feeds } = response.data;
         console.log("GET - STAGE Channel Feed FROM ThingSpeak: " + feeds[0]);
+        console.log("field-1: " + feeds[0].field1);
+        console.log("field-2: " + feeds[0].field2);
+        console.log("field-3: " + feeds[0].field3);
         this.setState({ stageTimeLast: this.loadStageTimeLast(feeds[0].field1) });
         this.setState({ stageStage: feeds[0].field2 });
         this.setState({ stageProcess: this.loadStageProcess(feeds[0].field3) });
     };
 
     loadGPIOCurrentTemperature = (value) => {
-        if(value == -999) {
+        console.log("loadGPIOCurrentTemperature: " + value);
+        if(value == -99) {
             return "N/C";
         } else if(isNaN(value) || value == null) {
             return "N/A";
@@ -73,6 +84,7 @@ export class MainScreen extends React.Component {
     };
 
     loadGPIOBooleanValue = (value) => {
+        console.log("loadGPIOBooleanValue: " + value);
         if(value == 0) {
             return "OFF";
         } else if(value == 1) {
@@ -83,6 +95,7 @@ export class MainScreen extends React.Component {
     };
 
     loadStageTimeLast = (value) => {
+        console.log("loadStageTimeLast: " + value);
         if(isNaN(value)) {
             return "N/A";
         } else {
@@ -108,6 +121,14 @@ export class MainScreen extends React.Component {
         const response = await apiFermChannelFeed.get();
         const { feeds } = response.data;
         console.log("GET - FERM Channel Feed FROM ThingSpeak: " + feeds[0]);
+        console.log("field-1: " + feeds[0].field1);
+        console.log("field-2: " + feeds[0].field2);
+        console.log("field-3: " + feeds[0].field3);
+        console.log("field-4: " + feeds[0].field4);
+        console.log("field-5: " + feeds[0].field5);
+        console.log("field-6: " + feeds[0].field6);
+        console.log("field-7: " + feeds[0].field7);
+        console.log("field-8: " + feeds[0].field8);
         this.setState({ fermTemp1: feeds[0].field1 ? feeds[0].field1 : 'N/A' });
         this.setState({ fermTime1: feeds[0].field2 ? feeds[0].field2/86400 : 'N/A' }); //Representing Time in Days
         this.setState({ fermTemp2: feeds[0].field3 ? feeds[0].field3 : 'N/A' });
@@ -124,6 +145,14 @@ export class MainScreen extends React.Component {
         const response = await apiMatChannelFeed.get();
         const { feeds } = response.data;
         console.log("GET - MAT Channel Feed FROM ThingSpeak: " + feeds[0]);
+        console.log("field-1: " + feeds[0].field1);
+        console.log("field-2: " + feeds[0].field2);
+        console.log("field-3: " + feeds[0].field3);
+        console.log("field-4: " + feeds[0].field4);
+        console.log("field-5: " + feeds[0].field5);
+        console.log("field-6: " + feeds[0].field6);
+        console.log("field-7: " + feeds[0].field7);
+        console.log("field-8: " + feeds[0].field8);
         this.setState({ matTemp1: feeds[0].field1 ? feeds[0].field1 : 'N/A' });
         this.setState({ matTime1: feeds[0].field2 ? feeds[0].field2/86400 : 'N/A' }); //Representing Time in Days
         this.setState({ matTemp2: feeds[0].field3 ? feeds[0].field3 : 'N/A' });
