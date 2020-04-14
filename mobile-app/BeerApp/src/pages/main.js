@@ -79,7 +79,7 @@ export class MainScreen extends React.Component {
         } else if(isNaN(value) || value == null) {
             return "N/A";
         } else {
-            return value.toFixed(0);
+            return value;
         }
     };
 
@@ -99,7 +99,7 @@ export class MainScreen extends React.Component {
         if(isNaN(value)) {
             return "N/A";
         } else {
-            return (value/60).toFixed(1); //Representing Time in Minutes
+            return value; //Representing Time in Seconds
         }
     };
 
@@ -130,13 +130,13 @@ export class MainScreen extends React.Component {
         console.log("field-7: " + feeds[0].field7);
         console.log("field-8: " + feeds[0].field8);
         this.setState({ fermTemp1: feeds[0].field1 ? feeds[0].field1 : 'N/A' });
-        this.setState({ fermTime1: feeds[0].field2 ? feeds[0].field2/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ fermTime1: feeds[0].field2 ? feeds[0].field2 : 'N/A' }); //Representing Time in Seconds
         this.setState({ fermTemp2: feeds[0].field3 ? feeds[0].field3 : 'N/A' });
-        this.setState({ fermTime2: feeds[0].field4 ? feeds[0].field4/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ fermTime2: feeds[0].field4 ? feeds[0].field4 : 'N/A' }); //Representing Time in Seconds
         this.setState({ fermTemp3: feeds[0].field5 ? feeds[0].field5 : 'N/A' });
-        this.setState({ fermTime3: feeds[0].field6 ? feeds[0].field6/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ fermTime3: feeds[0].field6 ? feeds[0].field6 : 'N/A' }); //Representing Time in Seconds
         this.setState({ fermTemp4: feeds[0].field7 ? feeds[0].field7 : 'N/A' });
-        this.setState({ fermTime4: feeds[0].field8 ? feeds[0].field8/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ fermTime4: feeds[0].field8 ? feeds[0].field8 : 'N/A' }); //Representing Time in Seconds
     };
 
     loadFermChannelFeedInterval = setInterval(this.loadFermChannelFeed, 120000);
@@ -154,13 +154,13 @@ export class MainScreen extends React.Component {
         console.log("field-7: " + feeds[0].field7);
         console.log("field-8: " + feeds[0].field8);
         this.setState({ matTemp1: feeds[0].field1 ? feeds[0].field1 : 'N/A' });
-        this.setState({ matTime1: feeds[0].field2 ? feeds[0].field2/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ matTime1: feeds[0].field2 ? feeds[0].field2 : 'N/A' }); //Representing Time in Seconds
         this.setState({ matTemp2: feeds[0].field3 ? feeds[0].field3 : 'N/A' });
-        this.setState({ matTime2: feeds[0].field4 ? feeds[0].field4/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ matTime2: feeds[0].field4 ? feeds[0].field4 : 'N/A' }); //Representing Time in Seconds
         this.setState({ matTemp3: feeds[0].field5 ? feeds[0].field5 : 'N/A' });
-        this.setState({ matTime3: feeds[0].field6 ? feeds[0].field6/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ matTime3: feeds[0].field6 ? feeds[0].field6 : 'N/A' }); //Representing Time in Seconds
         this.setState({ matTemp4: feeds[0].field7 ? feeds[0].field7 : 'N/A' });
-        this.setState({ matTime4: feeds[0].field8 ? feeds[0].field8/86400 : 'N/A' }); //Representing Time in Days
+        this.setState({ matTime4: feeds[0].field8 ? feeds[0].field8 : 'N/A' }); //Representing Time in Seconds
     };
 
     loadMatChannelFeedInterval = setInterval(this.loadMatChannelFeed, 120000);
@@ -168,13 +168,13 @@ export class MainScreen extends React.Component {
     sendFermChannelFeed = async () => {
         const response = apiSendStartProcess.get("https://api.thingspeak.com/update?api_key=MJLW7MUQEFDVJJYD"
             + "&field1=" + (isNaN(this.state.fermTemp1) ? "0" : this.state.fermTemp1)
-            + "&field2=" + (isNaN(this.state.fermTime1) ? "0" : this.state.fermTime1*86400)
+            + "&field2=" + (isNaN(this.state.fermTime1) ? "0" : this.state.fermTime1)
             + "&field3=" + (isNaN(this.state.fermTemp2) ? "0" : this.state.fermTemp2)
-            + "&field4=" + (isNaN(this.state.fermTime2) ? "0" : this.state.fermTime2*86400)
+            + "&field4=" + (isNaN(this.state.fermTime2) ? "0" : this.state.fermTime2)
             + "&field5=" + (isNaN(this.state.fermTemp3) ? "0" : this.state.fermTemp3)
-            + "&field6=" + (isNaN(this.state.fermTime3) ? "0" : this.state.fermTime3*86400)
+            + "&field6=" + (isNaN(this.state.fermTime3) ? "0" : this.state.fermTime3)
             + "&field7=" + (isNaN(this.state.fermTemp4) ? "0" : this.state.fermTemp4)
-            + "&field8=" + (isNaN(this.state.fermTime4) ? "0" : this.state.fermTime4*86400)
+            + "&field8=" + (isNaN(this.state.fermTime4) ? "0" : this.state.fermTime4)
         );
         const { status } = response;
         console.log("GET - New FERM Values TO ThingSpeak");
@@ -185,13 +185,13 @@ export class MainScreen extends React.Component {
     sendMatChannelFeed = async () => {
         const response = apiSendStartProcess.get("https://api.thingspeak.com/update?api_key=KUEG7YVXEDWMAF9N"
             + "&field1=" + (isNaN(this.state.matTemp1) ? "0" : this.state.matTemp1)
-            + "&field2=" + (isNaN(this.state.matTime1) ? "0" : this.state.matTime1*86400)
+            + "&field2=" + (isNaN(this.state.matTime1) ? "0" : this.state.matTime1)
             + "&field3=" + (isNaN(this.state.matTemp2) ? "0" : this.state.matTemp2)
-            + "&field4=" + (isNaN(this.state.matTime2) ? "0" : this.state.matTime2*86400)
+            + "&field4=" + (isNaN(this.state.matTime2) ? "0" : this.state.matTime2)
             + "&field5=" + (isNaN(this.state.matTemp3) ? "0" : this.state.matTemp3)
-            + "&field6=" + (isNaN(this.state.matTime3) ? "0" : this.state.matTime3*86400)
+            + "&field6=" + (isNaN(this.state.matTime3) ? "0" : this.state.matTime3)
             + "&field7=" + (isNaN(this.state.matTemp4) ? "0" : this.state.matTemp4)
-            + "&field8=" + (isNaN(this.state.matTime4) ? "0" : this.state.matTime4*86400)
+            + "&field8=" + (isNaN(this.state.matTime4) ? "0" : this.state.matTime4)
         );
         const { status } = response;
         console.log("GET - New MAT Values TO ThingSpeak");
@@ -201,7 +201,7 @@ export class MainScreen extends React.Component {
 
     sendStartProcess = async () => {
         const response = apiSendStartProcess.get("https://api.thingspeak.com/update?api_key=ZOXAWIT42OYRP8Z8"
-            + "&field1=1"
+            + "&field1=" + 1
         );
         const { status } = response;
         console.log("GET - New START Process TO ThingSpeak");
@@ -308,7 +308,7 @@ export class MainScreen extends React.Component {
                         <Text style={styles.header}>Stage</Text>
                         <Text>Current Process: <Text style={styles.boldAndBlue}>{this.state.stageProcess}</Text></Text>
                         <Text>Current Stage: <Text style={styles.boldAndBlue}>#{this.state.stageStage}</Text></Text>                        
-                        <Text>Time Remaining for Next Step: <Text style={styles.boldAndBlue}>{this.state.stageTimeLast} [minutes]</Text></Text>
+                        <Text>Time Remaining for Next Step: <Text style={styles.boldAndBlue}>{this.state.stageTimeLast} [s]</Text></Text>
                         <Text style={styles.header}>Fermentation Schedule</Text>
                         <View style={styles.inline}>
                             <Text>Temperature#1: </Text>                            
@@ -317,7 +317,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onFermTime1Changed(e)} value = {String(this.state.fermTime1)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <View style={styles.inline}>
                             <Text>Temperature#2: </Text>
@@ -326,7 +326,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onFermTime2Changed(e)} value = {String(this.state.fermTime2)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <View style={styles.inline}>
                             <Text>Temperature#3: </Text>
@@ -335,7 +335,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onFermTime3Changed(e)} value = {String(this.state.fermTime3)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <View style={styles.inline}>
                             <Text>Temperature#4: </Text>
@@ -344,7 +344,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onFermTime4Changed(e)} value = {String(this.state.fermTime4)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <Text style={styles.header}>Maturation Schedule</Text>
                         <View style={styles.inline}>
@@ -354,7 +354,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onMatTime1Changed(e)} value = {String(this.state.matTime1)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <View style={styles.inline}>
                             <Text>Temperature#2: </Text>
@@ -363,7 +363,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onMatTime2Changed(e)} value = {String(this.state.matTime2)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <View style={styles.inline}>
                             <Text>Temperature#3: </Text>
@@ -372,7 +372,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onMatTime3Changed(e)} value = {String(this.state.matTime3)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <View style={styles.inline}>
                             <Text>Temperature#4: </Text>
@@ -381,7 +381,7 @@ export class MainScreen extends React.Component {
                             <Text>[°C] during </Text>
                             <Icon name="clock" size={15} color="#00f" />
                             <TextInput style={styles.textInput} keyboardType = 'numeric' maxLength={3} onChangeText = {(e)=> this.onMatTime4Changed(e)} value = {String(this.state.matTime4)} />
-                            <Text>[days]</Text>
+                            <Text>[s]</Text>
                         </View>
                         <View style={styles.button}>
                         <Button title="Start Schedule!" onPress={() => this.sendStartSchedule()}></Button>
